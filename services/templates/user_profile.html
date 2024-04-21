@@ -1,0 +1,36 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="container mx-auto">
+    <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold text-gray-800">Your Profile</h2>
+      </div>
+      <div class="p-4">
+        <form method="get" action="/edit/">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="username" class="block text-gray-700 font-bold mb-2">Username:</label>
+            <p id="username" class="text-gray-800">{{ username }}</p>
+          </div>
+          <div class="mb-4">
+            <label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
+            <p id="email" class="text-gray-800">{{ email }}</p>
+          </div>
+          <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
+            <p id="name" class="text-gray-800">{{ name }}</p>
+          </div>
+          <div class="mb-4">
+            <label for="member_from" class="block text-gray-700 font-bold mb-2">Joined On:</label>
+            <p id="member_from" class="text-gray-800">{{ member_from }}</p>
+          </div>
+          <button type="submit" class="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+            Update Details
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

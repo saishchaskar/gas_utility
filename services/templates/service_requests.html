@@ -1,0 +1,67 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="container mx-auto">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold text-gray-800">MY REQUESTS</h2>
+      </div>
+      <div class="p-4">
+        <div class="border">
+          {% if todos|length == 0 %}
+          <div class="p-4">
+            <div class="text-center">
+              <p class="text-2xl text-gray-800">No Todos</p>
+            </div>
+          </div>
+          {% else %}
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2">ID</th>
+                  <th class="px-4 py-2">Request Type</th>
+                  <th class="px-4 py-2">Status</th>
+                  <th class="px-4 py-2">Submitted At</th>
+                  <th class="px-4 py-2">Resolved At</th>
+                  <th class="px-4 py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for todo in todos %}
+                <tr>
+                  <td class="border px-4 py-2">{{ forloop.counter }}</td>
+                  <td class="border px-4 py-2">{{ todo.request_type }}</td>
+                  <td class="border px-4 py-2">
+                    {% if todo.status == 'C' %}
+                    Completed
+                    {% else %}
+                    Pending
+                    {% endif %}
+                  </td>
+                  <td class="border px-4 py-3">{{ todo.submitted_at }}</td>
+                  <td class="border px-4 py-3">
+                    {% if todo.resolved_at %}
+                    {{ todo.resolved_at }}
+                    {% else %}
+                    Not Resolved
+                    {% endif %}
+                  </td>
+                  <td class="border px-5 py-3">
+                    <a href="/show_details/{{ todo.id }}" 
+                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded">
+                    Details
+                 </a>                 
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
