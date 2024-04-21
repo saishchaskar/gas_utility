@@ -1,0 +1,38 @@
+gas_utility/
+│
+├── gas_utility/         # Project directory (configuration and global settings)
+│   ├── __init__.py
+│   ├── asgi.py  
+│   ├── settings.py              # Settings for the project
+│   ├── urls.py                  # Root URL configurations for the entire project
+│   └── wsgi.py                  # WSGI application for deployment
+│
+│
+├── media/attachments  # Attachmens directory for storing request documents
+│       └──/
+├── services/                    # App for service request management
+│   ├── migrations/
+│   ├── templates/
+│   │       ├── home.html
+│   │       ├── index.html
+│   │       ├── login.html
+│   │       ├── profile_edit.html
+│   │       ├── service_details.html
+│   │       ├── service_requests.html
+│   │       ├── signup.html
+│   │       └── user_profile.html
+│   ├── __init__.py
+│   ├── admin.py                 # Admin configurations for service request models
+│   ├── apps.py                  # Application configurations for services
+│   ├── forms.py                 # Forms for submitting and managing service requests
+│   ├── models.py                # Models related to service requests
+│   ├── tests.py                 # Tests for the services app
+│   ├── urls.py                  # URL patterns for service request features
+│   └── views.py                 # Views for service request management
+│
+├── static/                      # Global static files (shared across apps)
+│   └── profile.css
+│
+│
+├── manage.py                    # Django's command-line utility for administrative tasks
+└── db.sqlite3                   # Default database file (SQLite, can be changed)
