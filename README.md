@@ -1,4 +1,4 @@
-# Gas Utility Service APP
+# Gas Utility Service App
 
 Django Based Gas Service Application
 ## Features
