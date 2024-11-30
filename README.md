@@ -6,7 +6,8 @@ Django Framework with MYSQL Database with Cloud Run and Cloud SQL deployment.
   ```bash
   https://gas-utility-app-346834722927.asia-south1.run.app/
   ```
-
+**Sample Cerdentials :**
+Username : demo  and  Password : Pune@123
 ## Features
 **Service requests**: The application allows customers to submit service requests online. This includes the ability to select the type of service request, provide details about the request, and attach files.
 
@@ -149,14 +150,17 @@ These instructions will guide you through setting up and running the Gas Utility
 
 -  # Outputs
 
--  ![Screenshot (161)](https://github.com/saishchaskar/gas_utility/assets/102912746/d394c56b-2d21-409a-a676-b6a34c8e1b33)
--  ![Screenshot (162)](https://github.com/saishchaskar/gas_utility/assets/102912746/22f5ea98-21c5-4011-a03b-7a30a058b981)
--  ![Screenshot (163)](https://github.com/saishchaskar/gas_utility/assets/102912746/01328d74-a323-410c-83ca-b5fac808f7fd)
--  ![Screenshot (164)](https://github.com/saishchaskar/gas_utility/assets/102912746/9d206817-dd86-439c-9c9c-f61172890d96)
--  ![Screenshot (165)](https://github.com/saishchaskar/gas_utility/assets/102912746/2374eb3c-c886-4554-b87c-941d13439952)
--  ![Screenshot (166)](https://github.com/saishchaskar/gas_utility/assets/102912746/69d0f5cd-0d96-4cd2-a1e5-01d85e82a3d8)
--  ![Screenshot (167)](https://github.com/saishchaskar/gas_utility/assets/102912746/92f6a73f-a58a-47fc-b6ef-93414dedab0f)
-  
+-  ![Screenshot (532)](https://github.com/user-attachments/assets/d7e9025c-7565-4a2d-b389-ac972c7700e5)
+-  ![Screenshot (536)](https://github.com/user-attachments/assets/2ec8146e-7e6a-4912-ac86-4cfb286c8abd)
+-  ![Screenshot (534)](https://github.com/user-attachments/assets/dafbafe7-992e-4ecb-8b55-8f5770613d1f)
+-  ![Screenshot (525)](https://github.com/user-attachments/assets/a8669cfc-d583-49b2-bba3-25d275499623)
+-  ![Screenshot (529)](https://github.com/user-attachments/assets/14d8133e-9cdb-4303-9e9a-5c7bc821c3fc)
+-  ![Screenshot (528)](https://github.com/user-attachments/assets/1457aa87-4a68-4ab6-bd19-bba85a350c6e)
+-  ![Screenshot (527)](https://github.com/user-attachments/assets/c74c82fc-554a-456e-aa5c-1b299129ff05)
+-  ![Screenshot (521)](https://github.com/user-attachments/assets/6a746846-de9c-499c-a236-0ecff6bd1372)
+-  ![Screenshot (522)](https://github.com/user-attachments/assets/dc67f1d1-290a-4bc9-b09b-1ba6a0b11061)
+-  ![Screenshot (526)](https://github.com/user-attachments/assets/d09555dd-3fcd-48b8-bb04-91af384a9b8d)
+
 
 
 
