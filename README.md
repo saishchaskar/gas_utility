@@ -1,13 +1,70 @@
 # Gas Utility Services Application
 
-Django Framework with MYSQL Database with Cloud Run and Cloud SQL deployment
+Django Framework with MYSQL Database with Cloud Run and Cloud SQL deployment.
+
+ **URL of live application**
+  ```bash
+  https://gas-utility-app-346834722927.asia-south1.run.app/
+  ```
 
 ## Features
 **Service requests**: The application allows customers to submit service requests online. This includes the ability to select the type of service request, provide details about the request, and attach files.
 
 **Request tracking**: The application allows customers to track the status of their service requests. This includes the ability to see the status of the request, the date and time the request was submitted, and the date and time the request was resolved.
 
-
+### Structure of the application
+```bash
+gas_utility/
+├── gas_utility/
+│   ├── __init__.py
+│   ├── settings.py   # Contains the application settings and configurations with database
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+└── media/            #   stores the  attachment attached to requests.
+│       ├── attachments/     
+│          ├── f.webp
+│          ├── etc
+│
+├── services/          # directory where actual application logic exists
+│   ├── __init__.py
+│   ├── admin.py       # Admin Tool code for managing the requests and interface of the admin portal
+│   ├── apps.py
+│   ├── models.py      # Database Models to store requests, user information, details of the request 
+│   ├── urls.py        # Routes of different pages to navigate 
+│   ├── views.py       #  logic to interact with frontend views
+│   ├── forms.py       # login and signup forms 
+│   ├── migrations/         # contains files related to interact with database
+│   ├── templates/          # Frontend HTML files 
+│         ├── home.html
+│         ├── index.html
+│         ├── login.html
+│         ├── profile_edit.html
+│         ├── service_details.html
+│         ├── service_requests.html
+│         ├── signup.html
+│         └── user_profile.html
+│         
+│
+│
+└── static/           # files of the static admin page 
+│       ├── admin/
+│       ├── css/
+│       ├── img/
+│       ├── js/
+│
+│
+│
+└── staticfiles/
+│       ├── profile.css
+│
+└── requirements.txt    # dependencies required for the applications to be installed
+│
+└── manage.py
+│
+│
+└── Dockerfile         #  For building image and deploying it on the containers 
+```
 
 These instructions will guide you through setting up and running the Gas Utility Service APP on your local machine for development and testing purposes.
 
@@ -16,7 +73,7 @@ These instructions will guide you through setting up and running the Gas Utility
 - Python (3.8 or later)
 - Django (3.2 or later)
 
-### Installation
+### Setup
 
 1. **Clone the Repository**
 
@@ -24,33 +81,65 @@ These instructions will guide you through setting up and running the Gas Utility
     https://github.com/saishchaskar/gas_utility.git
     ```
 
-2. **Create and Activate a Virtual Environment**
-
-    - For Unix/macOS:
-    
-        ```bash
-        python3 -m venv venv
-        source venv/bin/activate
-        ```
-
-    - For Windows:
-    
-        ```bash
-        python -m venv venv
-        venv\Scripts\activate
-        ```
-        
-3. **Migrate the Database**
+2. **Navigate to the project directory:**
 
     ```bash
-    python manage.py migrate
+    cd your_project_dir
     ```
-4. **Run the Development Server**
+
+3. **Create a virtual environment:**
 
     ```bash
-    python manage.py runserver
+    python -m venv env
     ```
+
+4. **Activate the virtual environment:**
+
+    On Windows:
+
+    ```bash
+    env\Scripts\activate
+    ```
+
+    On Unix or MacOS:
+
+    ```bash
+    source env/bin/activate
+    ```
+
+5. **Install the requirements:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+6. **Install the mysqlcilent:**
+
+    ```bash
+    pip install mysqlclient
+    ```    
     
+7. **Database Setup: Set your Database information**
+  ```bash
+  DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'your_db_name',
+         'USER': 'your_user_name',    
+         'PASSWORD': 'your_password',
+         'HOST': 'Your_IP_Address',  # Use '127.0.0.1' if 'localhost' causes issues
+         'PORT': 'Port_number',
+         'OPTIONS': {
+             'init_command': "SET time_zone='+05:30'",  # Set to UTC
+         },
+     }
+ }
+ ```
+8. **Migrate Database**
+   ```bash
+   python manage.py makemigrations                                                                               
+   python manage.py migrate
+   python manage.py runserver
+   ```
     Visit `http://127.0.0.1:8000/` in your web browser to view the application.
 
 ### Usage
