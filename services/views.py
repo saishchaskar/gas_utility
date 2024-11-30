@@ -29,74 +29,47 @@ def requests_list(request):
 
 def login(request):
     if request.method == 'GET':
-        form1 = AuthenticationForm()
+        # Display an empty form for GET requests
+        form = AuthenticationForm()
         context = {
-            "form" : form1
+            "form": form
         }
-        return render(request , 'login.html' , context=context )
+        return render(request, 'login.html', context=context)
     else:
+        # Process the login form for POST requests
         form = AuthenticationForm(data=request.POST)
-        print(form.is_valid())
         if form.is_valid():
+            # Get the cleaned data from the form
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username = username , password = password)
+
+            # Authenticate the user
+            user = authenticate(username=username, password=password)
             if user is not None:
-                loginUser(request , user)
-                return redirect('home')
-        else:
-            context = {
-                "form" : form
-            }
-            return render(request , 'login.html' , context=context )
+                # Log in the user
+                loginUser(request, user)
+                return redirect('home')  # Replace 'home' with your actual homepage URL name
+        # If the form is invalid, re-render the page with error messages
+        context = {
+            "form": form
+        }
+        return render(request, 'login.html', context=context)
 
 
 def signup(request):
-
-    if request.method == 'GET':
-        form = UserCreationForm()
-        print("form=",form)
-        context = {
-            "form" : form
-        }
-        return render(request , 'signup.html' , context=context)
-    else:
-        print(request.POST)
-        form = UserCreationForm(request.POST)  
-        context = {
-            "form" : form
-        }
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            print(user)
-            if user is not None:
-                return redirect('login')
-        else:
-            return render(request , 'signup.html' , context=context)
-
-
-def signup_custom(request):
-
-    if request.method == 'GET':
+            # Save the user and redirect to the login page
+            form.save()
+            return redirect('login')  # Update 'login' to your actual login URL name
+    else:
+        # Instantiate an empty form for GET requests
         form = SignUpForm()
-        print("form=",form)
-        context = {
-            "form" : form
-        }
-        return render(request , 'signup.html' , context=context)
-    else:
-        print(request.POST)
-        form = SignUpForm(request.POST)  
-        context = {
-            "form" : form
-        }
-        if form.is_valid():
-            user = form.save()
-            print("user=",user)
-            if user is not None:
-                return redirect('login')
-        else:
-            return render(request , 'signup.html' , context=context)
+
+    context = {"form": form}
+    return render(request, 'signup.html', context)
+
 
 
 

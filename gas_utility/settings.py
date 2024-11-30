@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 
 from pathlib import Path
+from urllib.parse import urlparse
+import os
+import environs
+
+env = environs.Env()
+environs.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,9 +37,23 @@ SECRET_KEY = 'django-insecure-+ot-4^^2+yqf-a0wxwa^8)3verw%(^rc4f8^+^!#k_j%efyi--
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: It's recommended that you use this when
+# running in production. The URLs will be known once you first deploy
+# to Cloud Run. This code takes the URLs and converts it to both these settings formats.
+CLOUDRUN_SERVICE_URLS = env("CLOUDRUN_SERVICE_URLS", default=None)
+if CLOUDRUN_SERVICE_URLS:
+    CSRF_TRUSTED_ORIGINS = env("CLOUDRUN_SERVICE_URLS").split(",")
+    # Remove the scheme from URLs for ALLOWED_HOSTS
+    ALLOWED_HOSTS = [urlparse(url).netloc for url in CSRF_TRUSTED_ORIGINS]
 
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+else:
+    ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://gas-utility-app-346834722927.asia-south1.run.app',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,10 +62,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles', 'services'
+    'django.contrib.staticfiles',
+    'services',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   
 ]
 
 ROOT_URLCONF = 'gas_utility.urls'
@@ -81,10 +105,17 @@ WSGI_APPLICATION = 'gas_utility.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gas_utility_services',
+        'USER': 'saish',    
+        'PASSWORD': 'saish',
+        'HOST': '/cloudsql/gas-utility-services:asia-south1:gas-utility-services',  # Use '127.0.0.1' if 'localhost' causes issues
+        'OPTIONS': {
+            'init_command': "SET time_zone='+05:30'",  # Set to UTC
+        },
     }
 }
+
 
 
 # Password validation
@@ -126,7 +157,19 @@ USE_TZ = True
 
 # Update STATIC_URL to ensure correct serving of static files
 STATIC_URL = '/static/'
+STATICFILES_DIR = [str(BASE_DIR.joinpath('static'))]
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Example using Gmail SMTP
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'chaskarsaish@gmail.com'  
+EMAIL_HOST_PASSWORD = 'cdzb enou vyjb uuwt'
+DEFAULT_FROM_EMAIL = 'chaskarsaish@gmail.com'  # The sender email

@@ -1,43 +1,83 @@
 {% extends 'home.html' %}
 {% block content %}
-<div class="min-h-screen flex items-center justify-center ">
+<div class="min-h-screen flex items-center justify-center">
   <div class="max-w-md w-full bg-white shadow-md rounded-lg p-6">
     <div class="text-center">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create Account</h2>
     </div>
+
+    <!-- Display Form Errors -->
+    {% if form.errors %}
+    <div class="mb-4 text-red-600 text-sm">
+      <ul class="list-disc list-inside">
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+          <li>{{ field|capfirst }}: {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
     <form class="mt-6" method="post" action="/signup/">
       {% csrf_token %}
       <!-- Render each field individually -->
       <div class="mb-4">
-        <label for="id_username" class="block text-gray-700 font-bold mb-2">Username:</label>
-        <input type="text" name="username" id="id_username" class="form-input w-full" placeholder="Username" required>
+        <label for="id_username" class="block text-sm font-medium text-gray-700">Username :</label>
+        <div class="mt-1">
+          <input type="text" name="username" id="id_username"
+                 class="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                 placeholder="Username" required>
+        </div>
       </div>
       <div class="mb-4">
-        <label for="id_first_name" class="block text-gray-700 font-bold mb-2">First Name:</label>
-        <input type="text" name="first_name" id="id_first_name" class="form-input w-full" placeholder="First Name" required>
+        <label for="first_name" class="block text-sm font-medium text-gray-700">First Name :</label>
+        <div class="mt-1">
+          <input type="text" name="first_name" id="first_name"
+                 class="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                 placeholder="First Name" required>
+        </div>
       </div>
       <div class="mb-4">
-        <label for="id_last_name" class="block text-gray-700 font-bold mb-2">Last Name:</label>
-        <input type="text" name="last_name" id="id_last_name" class="form-input w-full" placeholder="Last Name" required>
+        <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name :</label>
+        <div class="mt-1">
+          <input type="text" name="last_name" id="last_name"
+                 class="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                 placeholder="Last Name" required>
+        </div>
       </div>
-      
       <div class="mb-4">
-        <label for="id_email" class="block text-gray-700 font-bold mb-2">Email:</label>
-        <input type="email" name="email" id="id_email" class="form-input w-full" placeholder="Email" required>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email :</label>
+        <div class="mt-1">
+          <input type="email" name="email" id="email" autocomplete="email-address"
+                 class="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                 placeholder="abc@gmail.com" required>
+        </div>
       </div>
       <div class="mb-4">
-        <label for="id_password1" class="block text-gray-700 font-bold mb-2">Password:</label>
-        <input type="password" name="password1" id="id_password1" class="form-input w-full" placeholder="Password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Password must be at least 8 characters long and contain at least one letter, one number, and one special character." required>
-    </div>
-    <div class="mb-6">
-        <label for="id_password2" class="block text-gray-700 font-bold mb-2">Confirm Password:</label>
-        <input type="password" name="password2" id="id_password2" class="form-input w-full" placeholder="Confirm Password" required>
-    </div>
-    <div class="text-gray-500 text-sm italic">Password should be unique from username and contain at least one special character.</div>
-        <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-          Create Account
-        </button>
+        <label for="id_password1" class="block text-sm font-medium text-gray-700">Password :</label>
+        <div class="mt-1">
+          <input type="password" name="password1" id="id_password1" autocomplete="password"
+                 class="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                 placeholder="Password" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                 title="Password must be at least 8 characters long and contain at least one letter, one number, and one special character." required>
+        </div>
       </div>
+      <div class="mb-4">
+        <label for="id_password2" class="block text-sm font-medium text-gray-700">Confirm Password :</label>
+        <div class="mt-1">
+          <input type="password" name="password2" id="id_password2" autocomplete="confirm-password"
+                 class="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                 placeholder="Confirm Password" required>
+        </div>
+      </div>
+      <div class="text-gray-500 text-sm italic">
+        Password should be unique from username and contain at least one special character.
+      </div>
+      <button type="submit"
+              class="w-full py-3 px-4 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+        Create Account
+      </button>
     </form>
   </div>
 </div>

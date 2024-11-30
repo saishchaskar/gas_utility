@@ -3,10 +3,15 @@ from django.contrib.auth.models import User
 
 
 class ServiceRequest(models.Model):
+    # Updated STATUS_CHOICES to reflect the sequential timeline
     STATUS_CHOICES = [
-        ('C', 'COMPLETED'),
-        ('P', 'PENDING'),
+        ('S', 'Submitted'),
+        ('R', 'Received'),
+        ('I', 'In Review'),
+        ('C', 'Completed'),
+        ('P', 'Pending'),
     ]
+
     REQUEST_TYPE_CHOICES = [
         ('Complaint', 'Complaint Request'),
         ('Service', 'Service Request'),
@@ -20,30 +25,11 @@ class ServiceRequest(models.Model):
     attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     resolved_at = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=20, default='Pending', choices=STATUS_CHOICES)
+    status = models.CharField(max_length=20, default='S', choices=STATUS_CHOICES)
 
+    def save(self, *args, **kwargs):
+        """Override save method without forward-only status progression."""
+        super().save(*args, **kwargs)
 
-
-class ServiceRequest1(models.Model):
-    STATUS_CHOICES = [
-        ('C', 'COMPLETED'),
-        ('P', 'PENDING'),
-    ]
-    PRIORITY_CHOICES = [
-        ('1', '1️⃣'),
-        ('2', '2️⃣'),
-        ('3', '3️⃣'),
-        ('4', '4️⃣'),
-        ('5', '5️⃣'),
-        ('6', '6️⃣'),
-        ('7', '7️⃣'),
-        ('8', '8️⃣'),
-        ('9', '9️⃣'),
-        ('10', '🔟'),
-    ]
-    title = models.CharField(max_length=50)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, verbose_name='Status')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    priority = models.CharField(max_length=2, choices=PRIORITY_CHOICES, verbose_name='Priority')
-
+    def __str__(self):
+        return f"ServiceRequest {self.id} - {self.get_status_display()}"
