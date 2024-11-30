@@ -13,6 +13,8 @@ Username : demo  and  Password : Pune@123
 
 **Request tracking**: The application allows customers to track the status of their service requests. This includes the ability to see the status of the request, the date and time the request was submitted, and the date and time the request was resolved.
 
+**Request Management**: The application allows Customer Support Repenstatives to track service requests. This includes the ability to manage the request as per the customers and also provides a feature to send email as per the request status to customer.
+
 ### Structure of the application
 ```bash
 gas_utility/
