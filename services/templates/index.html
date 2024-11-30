@@ -1,18 +1,18 @@
 {% extends 'home.html' %}
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
+<div class="min-h-screen flex items-center justify-center bg-blue-300">
   <div class="container mx-auto">
     <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
       <div class="text-center">
-        <h2 class="text-2xl font-semibold text-gray-800">SERVICE REQUEST</h2>
+        <h2 class="text-2xl font-semibold text-gray-800">Raise a Request</h2>
       </div>
       <div class="p-4">
         <form action="/add-todo/" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <!-- Use dropdown menu for request type -->
           <div class="mb-4">
-            <label for="id_request_type" class="block text-gray-700 font-bold mb-2">Request Type:</label>
-            <select name="request_type" id="id_request_type" class="form-select w-full border border-gray-300 rounded-md">
+            <label for="id_request_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Request Type</label>
+            <select name="request_type" id="id_request_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option value="" disabled selected>Select request type</option>
               <option value="Complaint">Complaint Request</option>
               <option value="Service">Service Request</option>
@@ -21,15 +21,48 @@
             </select>
           </div>
           <div class="mb-4">
-            <label for="id_details" class="block text-gray-700 font-bold mb-2">Details:</label>
+            <label for="id_details" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
             <!-- Add border to the textarea field -->
-            <textarea name="details" id="id_details" class="form-textarea w-full border border-gray-300 rounded-md"></textarea>
+            <textarea name="details" id="id_details" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your request details here..."></textarea>
           </div>
-          <div class="mb-4">
-            <label for="id_attachment" class="block text-gray-700 font-bold mb-2">Attachment:</label>
-            <!-- Add border to the input field -->
-            <input type="file" name="attachment" id="id_attachment" class="form-input w-full border border-gray-300 rounded-md">
+          <div class="w-full py-9 bg-gray-50 rounded-2xl border border-gray-300 gap-3 grid border-dashed">
+            <div class="grid gap-1">
+              <svg class="mx-auto" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="File">
+                  <path id="icon" d="..." fill="#4F46E5" />
+                </g>
+              </svg>
+              <h2 class="text-center text-gray-400 text-xs leading-4">PNG, JPG or PDF, smaller than 15MB</h2>
+            </div>
+            <div class="grid gap-2">
+              <h4 class="text-center text-gray-900 text-sm font-medium leading-snug">Drag and Drop your file here or</h4>
+              <div class="flex items-center justify-center">
+                <label for="id_attachment">
+                  <input type="file" hidden id="id_attachment" name="attachment" />
+                  <div class="flex w-28 h-9 px-2 flex-col bg-indigo-600 rounded-full shadow text-white text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none">
+                    Choose File
+                  </div>
+                </label>
+              </div>
+              <div id="fileDetails" class="text-center text-gray-600 text-sm mt-3 hidden"></div>
+            </div>
           </div>
+          
+          <script>
+            document.getElementById("id_attachment").addEventListener("change", function (event) {
+              const file = event.target.files[0];
+              const fileDetails = document.getElementById("fileDetails");
+          
+              if (file) {
+                fileDetails.textContent = `Selected file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                fileDetails.classList.remove("hidden");
+              } else {
+                fileDetails.textContent = "";
+                fileDetails.classList.add("hidden");
+              }
+            });
+          </script>
+          
           <hr class="my-4">
           <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             ADD
