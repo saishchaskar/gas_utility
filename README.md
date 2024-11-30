@@ -1,10 +1,13 @@
-# Gas Utility Service App
+# Gas Utility Services Application
 
-Django Based Gas Service Application
+Django Framework with MYSQL Database with Cloud Run and Cloud SQL deployment
+
 ## Features
-**Service requests**: The application would allow customers to submit service requests online. This would include the ability to select the type of service request, provide details about the request, and attach files.
+**Service requests**: The application allows customers to submit service requests online. This includes the ability to select the type of service request, provide details about the request, and attach files.
 
-**Request tracking**: The application would allow customers to track the status of their service requests. This would include the ability to see the status of the request, the date and time the request was submitted, and the date and time the request was resolved.
+**Request tracking**: The application allows customers to track the status of their service requests. This includes the ability to see the status of the request, the date and time the request was submitted, and the date and time the request was resolved.
+
+
 
 These instructions will guide you through setting up and running the Gas Utility Service APP on your local machine for development and testing purposes.
 
